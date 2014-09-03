@@ -1,0 +1,45 @@
+<html>
+  <head>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.7/angular.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.7/angular-resource.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.7/angular-route.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <link rel="stylesheet" href="css/app.css">
+    <style>
+      .nested {
+        border: 1px solid red;
+        margin-left: 2em;
+        padding: 1em;
+      }
+    </style>
+  </head>
+  <body ng-app="MyApp">
+    <div ng-controller="MyCtrl">
+      <label ng-hide="usaved">Choose a nickname : </label>
+      <label ng-show="usaved">My nickname : </label>
+      <input type="text" ng-model="name" ng-disabled="usaved">
+      <button ng-hide="usaved" ng-click="saveUser()" >Join !</button>
+
+      <label ng-show="usaved">Category:</label>
+      <select ng-options="opt.name for opt in mycats" ng-model="cat" ng-show="usaved" ng-disabled="csaved"></select>
+      <button ng-show="usaved" ng-hide="csaved"  ng-click="saveCat()" >Submit !</button>
+
+      <div class="nested" ng-controller="MyCtrl1" ng-show="csaved">
+
+<div class="container slider" >
+   [ {{_index+1}} / {{$parent.perms.length}}] {{$parent.perms[_index].question}}<br/>
+<hr/>
+   <a class="arrow next" href="#" ng-class="mycolor[0]" ng-click="setResult(0)">1. {{$parent.perms[_index].a1}}</a><br/>
+   <a class="arrow next" href="#" ng-class="mycolor[1]" ng-click="setResult(1)">2. {{$parent.perms[_index].a2}}</a><br/>
+   <a class="arrow next" href="#" ng-class="mycolor[2]" ng-click="setResult(2)">3. {{$parent.perms[_index].a3}}</a><br/>
+   <a class="arrow next" href="#" ng-class="mycolor[3]" ng-click="setResult(3)">4. {{$parent.perms[_index].a4}}</a><br/>
+<hr/>
+   [ - {{_fail}} / + {{_succ}} ]
+</div>
+
+      </div>
+    </div>
+  </body>
+</html>
